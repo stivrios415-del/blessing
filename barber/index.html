@@ -162,7 +162,27 @@
     .gallery-item.hidden{display:none;}
 
 
-    /* Skeleton loader para fotos */
+    /* ---- Video en galería ---- */
+    .gallery-item video{
+      position:absolute;inset:0;
+      width:100%;height:100%;
+      object-fit:cover;
+      transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .gallery-item:hover video{transform:scale(1.04);}
+    .video-badge{
+      position:absolute;top:0.6rem;left:0.6rem;
+      background:rgba(0,0,0,0.6);border:1px solid rgba(200,169,110,0.4);
+      color:#C8A96E;font-family:'Lato',sans-serif;
+      font-size:0.55rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+      padding:0.2rem 0.55rem;border-radius:9999px;
+      display:flex;align-items:center;gap:0.3rem;z-index:2;
+    }
+    .video-badge::before{
+      content:'';display:block;width:5px;height:5px;border-radius:50%;
+      background:#C8A96E;animation:pulse-dot 1.4s ease infinite;
+    }
+    @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:0.3;}}
     .photo-skeleton{
       background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);
       background-size:200% 100%;
@@ -601,6 +621,23 @@
 
     <div class="gallery-grid" id="galleryGrid">
 
+      <!-- VIDEO — siempre primero, ocupa 2 columnas -->
+      <div class="gallery-item g-wide" data-cat="all" data-index="-1" style="cursor:default;">
+        <span class="video-badge">▶ En vivo</span>
+        <video
+          src="img/clip1.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </video>
+        <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 40%);">
+          <span class="gallery-tag">Nuestro trabajo</span>
+        </div>
+      </div>
+
       <!-- Fila 1: g1 ancha + g2 + g3 -->
       <div class="gallery-item g-wide" data-cat="corte" data-index="0" onclick="openLB(0)">
         <div class="photo-skeleton"></div>
@@ -862,20 +899,17 @@
 
   /* ---- Filtro galería ---- */
   function filterGallery(cat, btn){
-    // Actualizar botón activo
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
-    // Mostrar / ocultar items
     document.querySelectorAll('.gallery-item').forEach(item => {
-      if(cat === 'all' || item.dataset.cat === cat){
+      const itemCat = item.dataset.cat;
+      // El video (data-cat="all") siempre visible
+      if(itemCat === 'all' || cat === 'all' || itemCat === cat){
         item.classList.remove('hidden');
       } else {
         item.classList.add('hidden');
       }
     });
-
-    // Recalcular índices visibles para el lightbox
     rebuildLBIndex();
   }
 
