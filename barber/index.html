@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="img/logo.jpeg" type="image/x-icon" />
   <title>Blessing's Barbershop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,8 +145,39 @@
     .btn-vip{display:inline-block;background:#C8A96E;color:#0A0A0A;font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.9rem 2.5rem;border-radius:9999px;border:none;cursor:pointer;transition:all 0.2s;}
     .btn-vip:hover{background:#DFC08A;transform:scale(1.03);box-shadow:0 12px 30px -6px rgba(200,169,110,0.38);}
 
-    /* ===================== GALERÍA ===================== */
-    .gallery{background:#0A0A0A;padding:5rem 1.5rem;}
+    /* ---- Filtros galería ---- */
+    .filter-bar{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .filter-btn{
+      background:transparent;
+      border:1px solid rgba(200,169,110,0.28);
+      color:rgba(245,240,232,0.55);
+      font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:700;
+      letter-spacing:0.1em;text-transform:uppercase;
+      padding:0.55rem 1.4rem;border-radius:9999px;cursor:pointer;
+      transition:all 0.22s cubic-bezier(0.16,1,0.3,1);
+    }
+    .filter-btn:hover{border-color:rgba(200,169,110,0.6);color:#C8A96E;}
+    .filter-btn.active{background:#C8A96E;border-color:#C8A96E;color:#0A0A0A;}
+    .gallery-item.hidden{display:none;}
+
+    /* ---- Filtros ---- */
+    .filter-bar{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .filter-btn{
+      background:transparent;
+      border:1px solid rgba(200,169,110,0.25);
+      color:rgba(245,240,232,0.55);
+      font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:700;
+      letter-spacing:0.12em;text-transform:uppercase;
+      padding:0.55rem 1.5rem;border-radius:9999px;cursor:pointer;
+      transition:all 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .filter-btn:hover{border-color:rgba(200,169,110,0.55);color:#C8A96E;}
+    .filter-btn.active{background:#C8A96E;border-color:#C8A96E;color:#0A0A0A;}
+
+    /* Ocultar items filtrados */
+    .gallery-item.hidden{
+      display:none;
+    }
 
     /* Skeleton loader para fotos */
     .photo-skeleton{
@@ -253,10 +283,189 @@
     .footer-text{font-size:0.75rem;font-weight:300;color:rgba(245,240,232,0.28);letter-spacing:0.08em;}
     .footer-gold{color:#C8A96E;}
 
+    /* ===================== MODAL ANUNCIO ===================== */
+    .announce-overlay{
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.88);
+      backdrop-filter:blur(6px);
+      z-index:999;
+      display:flex;align-items:center;justify-content:center;
+      padding:1rem;
+      animation:fadeUp 0.4s ease forwards;
+    }
+    .announce-overlay.hiding{
+      animation:announceOut 0.35s ease forwards;
+    }
+    @keyframes announceOut{
+      0%{opacity:1;transform:scale(1);}
+      100%{opacity:0;transform:scale(0.96);}
+    }
+
+    .announce-modal{
+      background:#111;
+      border:1px solid rgba(200,169,110,0.3);
+      border-radius:1.25rem;
+      max-width:480px;
+      width:100%;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 30px 80px -10px rgba(0,0,0,0.9), 0 0 0 1px rgba(200,169,110,0.08);
+    }
+
+    /* Cerrar */
+    .announce-close{
+      position:absolute;top:0.85rem;right:0.85rem;
+      background:rgba(0,0,0,0.55);border:1px solid rgba(200,169,110,0.25);
+      color:#C8A96E;width:34px;height:34px;border-radius:50%;
+      font-size:1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      z-index:10;transition:background 0.2s;
+    }
+    .announce-close:hover{background:rgba(200,169,110,0.2);}
+
+    /* Carrusel de 2 imágenes */
+    .announce-carousel{
+      position:relative;
+      width:100%;
+      aspect-ratio:4/3;
+      overflow:hidden;
+      background:#0a0a0a;
+    }
+    .announce-slides{
+      display:flex;
+      width:200%;
+      height:100%;
+      transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .announce-slide{
+      width:50%;
+      height:100%;
+      flex-shrink:0;
+    }
+    .announce-slide img{
+      width:100%;height:100%;
+      object-fit:cover;
+    }
+
+    /* Indicadores */
+    .announce-dots{
+      position:absolute;bottom:0.75rem;left:50%;transform:translateX(-50%);
+      display:flex;gap:0.4rem;
+    }
+    .announce-dot{
+      width:6px;height:6px;border-radius:50%;
+      background:rgba(255,255,255,0.35);
+      cursor:pointer;transition:all 0.2s;border:none;padding:0;
+    }
+    .announce-dot.active{background:#C8A96E;width:18px;border-radius:9999px;}
+
+    /* Flechas del carrusel */
+    .announce-arr{
+      position:absolute;top:50%;transform:translateY(-50%);
+      background:rgba(0,0,0,0.5);border:1px solid rgba(200,169,110,0.2);
+      color:#C8A96E;width:32px;height:32px;border-radius:50%;
+      font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background 0.2s;z-index:5;
+    }
+    .announce-arr:hover{background:rgba(200,169,110,0.25);}
+    .announce-arr-l{left:0.6rem;}
+    .announce-arr-r{right:0.6rem;}
+
+    /* Contenido inferior */
+    .announce-body{padding:1.4rem 1.5rem 1.75rem;}
+    .announce-badge{
+      display:inline-block;
+      background:rgba(200,169,110,0.12);border:1px solid rgba(200,169,110,0.3);
+      color:#C8A96E;font-size:0.6rem;font-weight:700;letter-spacing:0.22em;
+      text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:9999px;
+      margin-bottom:0.75rem;
+    }
+    .announce-title{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(1.6rem,5vw,2.2rem);
+      color:#F5F0E8;letter-spacing:0.04em;line-height:1.05;
+      margin-bottom:0.5rem;
+    }
+    .announce-title span{color:#C8A96E;}
+    .announce-desc{
+      font-size:0.82rem;font-weight:300;
+      color:rgba(245,240,232,0.62);line-height:1.65;
+      margin-bottom:1.25rem;
+    }
+    .announce-actions{display:flex;gap:0.75rem;align-items:center;}
+    .btn-announce-main{
+      background:#C8A96E;color:#0A0A0A;
+      font-family:'Lato',sans-serif;font-size:0.8rem;font-weight:700;
+      letter-spacing:0.12em;text-transform:uppercase;
+      padding:0.7rem 1.75rem;border-radius:9999px;border:none;
+      cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;
+      transition:all 0.2s;
+    }
+    .btn-announce-main:hover{background:#DFC08A;transform:scale(1.03);}
+    .btn-announce-skip{
+      background:transparent;border:none;cursor:pointer;
+      font-family:'Lato',sans-serif;font-size:0.75rem;font-weight:400;
+      color:rgba(245,240,232,0.35);text-decoration:underline;
+      transition:color 0.2s;
+    }
     @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;}}
   </style>
 </head>
 <body>
+
+<!-- ===================== MODAL ANUNCIO ===================== -->
+<!--
+  PARA PERSONALIZAR:
+  - Cambia img/anuncio1.jpeg e img/anuncio2.jpeg por tus imágenes del evento
+  - Cambia el texto del título, descripción y badge
+  - Cambia el href del botón "Ver más" por tu link de Instagram o el que quieras
+-->
+<div class="announce-overlay" id="announceOverlay">
+  <div class="announce-modal">
+
+    <!-- Botón cerrar -->
+    <button class="announce-close" onclick="closeAnnounce()">✕</button>
+
+    <!-- Carrusel -->
+    <div class="announce-carousel">
+      <div class="announce-slides" id="announceSlides">
+        <div class="announce-slide">
+          <img src="img/anuncio1.jpeg" alt="Evento 1">
+        </div>
+        <div class="announce-slide">
+          <img src="img/anuncio2.jpeg" alt="Evento 2">
+        </div>
+      </div>
+      <!-- Flechas -->
+      <button class="announce-arr announce-arr-l" onclick="slideAnnounce(-1)">&#8592;</button>
+      <button class="announce-arr announce-arr-r" onclick="slideAnnounce(1)">&#8594;</button>
+      <!-- Dots -->
+      <div class="announce-dots">
+        <button class="announce-dot active" onclick="goAnnounce(0)"></button>
+        <button class="announce-dot"        onclick="goAnnounce(1)"></button>
+      </div>
+    </div>
+
+    <!-- Texto -->
+    <div class="announce-body">
+      <span class="announce-badge">✦ Evento Especial</span>
+      <h2 class="announce-title">Título del <span>Evento</span></h2>
+      <p class="announce-desc">
+        Descripción corta del evento o promoción. Puedes poner fecha, hora, descuentos o lo que quieras anunciar.
+      </p>
+      <div class="announce-actions">
+        <a class="btn-announce-main"
+           href="https://www.instagram.com/_elnegrobarberhn?igsh=MTZseTNxZmI4NjdmNw=="
+           target="_blank" rel="noopener">
+          Ver más
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <button class="btn-announce-skip" onclick="closeAnnounce()">Omitir por ahora</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
@@ -404,117 +613,126 @@
       INSTRUCCIONES: Reemplaza img/g1.jpeg … img/g20.jpeg con los nombres reales de tus fotos.
       Las clases g-wide (ocupa 2 columnas) y g-tall (ocupa 2 filas) dan variedad visual.
       El orden está pensado para alternar tamaños y crear ritmo.
-    -->
+  -->
+
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterGallery('all',this)">Todos</button>
+      <button class="filter-btn" onclick="filterGallery('corte',this)">✂&nbsp; Cortes</button>
+      <button class="filter-btn" onclick="filterGallery('tinte',this)">🎨&nbsp; Tintes</button>
+      <button class="filter-btn" onclick="filterGallery('diseno',this)">⚡&nbsp; Diseños</button>
+    </div>
+
     <div class="gallery-grid" id="galleryGrid">
 
       <!-- Fila 1: g1 ancha + g2 + g3 -->
-      <div class="gallery-item g-wide" data-index="0" onclick="openLB(0)">
+      <div class="gallery-item g-wide" data-cat="corte" data-index="0" onclick="openLB(0)">
         <div class="photo-skeleton"></div>
         <img src="img/g1.jpeg" alt="Corte 1" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Corte &amp; Fade</span></div>
       </div>
-      <div class="gallery-item" data-index="1" onclick="openLB(1)">
+      <div class="gallery-item" data-cat="diseno" data-index="1" onclick="openLB(1)">
         <div class="photo-skeleton"></div>
         <img src="img/g2.jpeg" alt="Corte 2" loading="lazy" onload="this.previousElementSibling.remove()">
-        <div class="gallery-overlay"><span class="gallery-tag">Diseno</span></div>
+        <div class="gallery-overlay"><span class="gallery-tag">Tinte</span></div>
       </div>
-      <div class="gallery-item" data-index="2" onclick="openLB(2)">
+      <div class="gallery-item" data-cat="corte" data-index="2" onclick="openLB(2)">
         <div class="photo-skeleton"></div>
         <img src="img/g3.jpeg" alt="Corte 3" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Degradado</span></div>
       </div>
 
       <!-- Fila 2: g4 + g5 alta + g6 + g7 -->
-      <div class="gallery-item" data-index="3" onclick="openLB(3)">
+      <div class="gallery-item" data-cat="diseno" data-index="3" onclick="openLB(3)">
         <div class="photo-skeleton"></div>
         <img src="img/g4.jpeg" alt="Corte 4" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Diseño</span></div>
       </div>
-      <div class="gallery-item g-tall" data-index="4" onclick="openLB(4)">
+      <div class="gallery-item g-tall" data-cat="tinte" data-index="4" onclick="openLB(4)">
         <div class="photo-skeleton"></div>
         <img src="img/g5.jpeg" alt="Corte 5" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Tinte</span></div>
       </div>
-      <div class="gallery-item" data-index="5" onclick="openLB(5)">
+      <div class="gallery-item" data-cat="corte" data-index="5" onclick="openLB(5)">
         <div class="photo-skeleton"></div>
         <img src="img/g6.jpeg" alt="Corte 6" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Corte &amp; Barba</span></div>
       </div>
-      <div class="gallery-item" data-index="6" onclick="openLB(6)">
+      <div class="gallery-item" data-cat="corte" data-index="6" onclick="openLB(6)">
         <div class="photo-skeleton"></div>
         <img src="img/g7.jpeg" alt="Corte 7" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Skin Fade</span></div>
       </div>
 
       <!-- Fila 3: g8 ancha + g9 + g10 -->
-      <div class="gallery-item g-wide" data-index="7" onclick="openLB(7)">
+      <div class="gallery-item g-wide" data-cat="diseno" data-index="7" onclick="openLB(7)">
         <div class="photo-skeleton"></div>
         <img src="img/g8.jpeg" alt="Corte 8" loading="lazy" onload="this.previousElementSibling.remove()">
-        <div class="gallery-overlay"><span class="gallery-tag">Diseno</span></div>
+        <div class="gallery-overlay"><span class="gallery-tag">Fade Clásico</span></div>
       </div>
-      <div class="gallery-item" data-index="8" onclick="openLB(8)">
+      <div class="gallery-item" data-cat="corte" data-index="8" onclick="openLB(8)">
         <div class="photo-skeleton"></div>
         <img src="img/g9.jpeg" alt="Corte 9" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Corte</span></div>
       </div>
-      <div class="gallery-item" data-index="9" onclick="openLB(9)">
+      <div class="gallery-item" data-cat="corte" data-index="9" onclick="openLB(9)">
         <div class="photo-skeleton"></div>
         <img src="img/g10.jpeg" alt="Corte 10" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Degradado</span></div>
       </div>
 
       <!-- Fila 4: g11 + g12 + g13 + g14 alta -->
-      <div class="gallery-item" data-index="10" onclick="openLB(10)">
+      <div class="gallery-item" data-cat="corte" data-index="10" onclick="openLB(10)">
         <div class="photo-skeleton"></div>
         <img src="img/g11.jpeg" alt="Corte 11" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Corte</span></div>
       </div>
-      <div class="gallery-item" data-index="11" onclick="openLB(11)">
+      <div class="gallery-item" data-cat="corte" data-index="11" onclick="openLB(11)">
         <div class="photo-skeleton"></div>
         <img src="img/g12.jpeg" alt="Corte 12" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Fade</span></div>
       </div>
-      <div class="gallery-item g-tall" data-index="12" onclick="openLB(12)">
+      <div class="gallery-item g-tall" data-cat="diseno" data-index="12" onclick="openLB(12)">
         <div class="photo-skeleton"></div>
         <img src="img/g13.jpeg" alt="Corte 13" loading="lazy" onload="this.previousElementSibling.remove()">
-        <div class="gallery-overlay"><span class="gallery-tag">Taper Fade</span></div>
+        <div class="gallery-overlay"><span class="gallery-tag">Skin Fade</span></div>
       </div>
-      <div class="gallery-item" data-index="13" onclick="openLB(13)">
+      <div class="gallery-item" data-cat="corte" data-index="13" onclick="openLB(13)">
         <div class="photo-skeleton"></div>
         <img src="img/g14.jpeg" alt="Corte 14" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Corte &amp; Barba</span></div>
       </div>
 
       <!-- Fila 5: g15 + g16 tinte ancha + g17 + g18 cejas + g19 + g20 -->
-      <div class="gallery-item" data-index="14" onclick="openLB(14)">
+      <div class="gallery-item" data-cat="diseno" data-index="14" onclick="openLB(14)">
         <div class="photo-skeleton"></div>
         <img src="img/g15.jpeg" alt="Corte 15" loading="lazy" onload="this.previousElementSibling.remove()">
-        <div class="gallery-overlay"><span class="gallery-tag">Diseno</span></div>
+        <div class="gallery-overlay"><span class="gallery-tag">Degradado</span></div>
       </div>
-      <div class="gallery-item g-wide" data-index="15" onclick="openLB(15)">
+      <div class="gallery-item g-wide" data-cat="tinte" data-index="15" onclick="openLB(15)">
         <div class="photo-skeleton"></div>
         <img src="img/g16.jpeg" alt="Corte 16" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Tinte</span></div>
       </div>
-      <div class="gallery-item" data-index="16" onclick="openLB(16)">
+      <div class="gallery-item" data-cat="corte" data-index="16" onclick="openLB(16)">
         <div class="photo-skeleton"></div>
         <img src="img/g17.jpeg" alt="Corte 17" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Corte Infantil</span></div>
       </div>
-      <div class="gallery-item" data-index="17" onclick="openLB(17)">
+      <div class="gallery-item" data-cat="tinte" data-index="17" onclick="openLB(17)">
         <div class="photo-skeleton"></div>
         <img src="img/g18.jpeg" alt="Corte 18" loading="lazy" onload="this.previousElementSibling.remove()">
-        <div class="gallery-overlay"><span class="gallery-tag">Taper con Diseno</span></div>
-      </div>
-      <div class="gallery-item" data-index="18" onclick="openLB(18)">
-        <div class="photo-skeleton"></div>
-        <img src="img/g19.jpeg" alt="Corte 19" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Cejas</span></div>
       </div>
-      <div class="gallery-item" data-index="19" onclick="openLB(19)">
+      <div class="gallery-item" data-cat="diseno" data-index="18" onclick="openLB(18)">
+        <div class="photo-skeleton"></div>
+        <img src="img/g19.jpeg" alt="Corte 19" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Corte &amp; Diseño</span></div>
+      </div>
+      <div class="gallery-item" data-cat="diseno" data-index="19" onclick="openLB(19)">
         <div class="photo-skeleton"></div>
         <img src="img/g20.jpeg" alt="Corte 20" loading="lazy" onload="this.previousElementSibling.remove()">
-        <div class="gallery-overlay"><span class="gallery-tag">Diseno</span></div>
+        <div class="gallery-overlay"><span class="gallery-tag">Fade Clásico</span></div>
       </div>
 
     </div>
@@ -544,7 +762,7 @@
       </a>
 
       <!-- Instagram -->
-      <a class="contact-card" href="https://www.instagram.com/_elnegrobarberhn?igsh=MTZseTNxZmI4NjdmNw==" target="_blank" rel="noopener">
+      <a class="contact-card" href="https://instagram.com/blessings.barbershop" target="_blank" rel="noopener">
         <div class="contact-card-icon">
           <!-- Instagram SVG filled -->
           <svg class="ig-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -552,7 +770,7 @@
           </svg>
         </div>
         <p class="contact-card-label">Instagram</p>
-        <p class="contact-card-value">@_elnegrobarberhn</p>
+        <p class="contact-card-value">@blessings.barbershop</p>
         <p class="contact-card-sub">Síguenos para ver más trabajo</p>
       </a>
 
@@ -570,6 +788,51 @@
 </footer>
 
 <script>
+  /* ---- Modal Anuncio ---- */
+  let annSlide = 0;
+  const annTotal = 2;
+
+  function goAnnounce(i){
+    annSlide = i;
+    document.getElementById('announceSlides').style.transform = `translateX(-${i * 50}%)`;
+    document.querySelectorAll('.announce-dot').forEach((d,idx) => {
+      d.classList.toggle('active', idx === i);
+    });
+  }
+  function slideAnnounce(dir){
+    goAnnounce((annSlide + dir + annTotal) % annTotal);
+  }
+  function closeAnnounce(){
+    const el = document.getElementById('announceOverlay');
+    el.classList.add('hiding');
+    setTimeout(()=>{ el.style.display='none'; }, 340);
+  }
+  // Auto-slide cada 3.5s
+  setInterval(()=>{ slideAnnounce(1); }, 3500);
+
+  /* ---- Filtro galería ---- */
+  function filterGallery(cat, btn){
+    // Actualizar botón activo
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Mostrar / ocultar items
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      if(cat === 'all' || item.dataset.cat === cat){
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    // Recalcular índices visibles para el lightbox
+    rebuildLBIndex();
+  }
+
+  function rebuildLBIndex(){
+    visibleImgs = Array.from(document.querySelectorAll('.gallery-item:not(.hidden) img'));
+  }
+
   /* ---- Cursor reveal ---- */
   const hero = document.getElementById('hero');
   hero.addEventListener('mousemove', (e) => {
@@ -578,9 +841,9 @@
   });
 
   /* ---- Nav scroll helper ---- */
-    function navGo(id){
-      document.querySelector(id).scrollIntoView({behavior:'smooth'});
-      // update active pill
+  function navGo(id){
+    document.querySelector(id).scrollIntoView({behavior:'smooth'});
+    // update active pill
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     const map = {'#hero':0,'#membresia':1,'#galeria':2,'#contacto':3};
     const idx = map[id];
@@ -599,16 +862,21 @@
   }
 
   /* ---- Lightbox ---- */
-  const imgs = Array.from(document.querySelectorAll('.gallery-item img'));
+  let visibleImgs = Array.from(document.querySelectorAll('.gallery-item img'));
   const lb    = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
   const lbCtr = document.getElementById('lb-counter');
   let current = 0;
 
   function openLB(i){
-    current = i;
-    lbImg.src = imgs[i].src;
-    lbCtr.textContent = (i+1) + ' / ' + imgs.length;
+    // Buscar la imagen dentro de los items visibles
+    const clickedItem = document.querySelector(`.gallery-item[data-index="${i}"]`);
+    const clickedImg  = clickedItem ? clickedItem.querySelector('img') : null;
+    visibleImgs = Array.from(document.querySelectorAll('.gallery-item:not(.hidden) img'));
+    current = clickedImg ? visibleImgs.indexOf(clickedImg) : 0;
+    if(current < 0) current = 0;
+    lbImg.src = visibleImgs[current].src;
+    lbCtr.textContent = (current+1) + ' / ' + visibleImgs.length;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -617,9 +885,9 @@
     document.body.style.overflow = '';
   }
   function shiftLB(dir){
-    current = (current + dir + imgs.length) % imgs.length;
-    lbImg.src = imgs[current].src;
-    lbCtr.textContent = (current+1) + ' / ' + imgs.length;
+    current = (current + dir + visibleImgs.length) % visibleImgs.length;
+    lbImg.src = visibleImgs[current].src;
+    lbCtr.textContent = (current+1) + ' / ' + visibleImgs.length;
   }
   lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLB(); });
   document.addEventListener('keydown', (e)=>{
