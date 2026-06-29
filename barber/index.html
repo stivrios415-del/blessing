@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="img/logo.jpeg" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blessing's Barbershop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,24 +161,6 @@
     .filter-btn.active{background:#C8A96E;border-color:#C8A96E;color:#0A0A0A;}
     .gallery-item.hidden{display:none;}
 
-    /* ---- Filtros ---- */
-    .filter-bar{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
-    .filter-btn{
-      background:transparent;
-      border:1px solid rgba(200,169,110,0.25);
-      color:rgba(245,240,232,0.55);
-      font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:700;
-      letter-spacing:0.12em;text-transform:uppercase;
-      padding:0.55rem 1.5rem;border-radius:9999px;cursor:pointer;
-      transition:all 0.25s cubic-bezier(0.16,1,0.3,1);
-    }
-    .filter-btn:hover{border-color:rgba(200,169,110,0.55);color:#C8A96E;}
-    .filter-btn.active{background:#C8A96E;border-color:#C8A96E;color:#0A0A0A;}
-
-    /* Ocultar items filtrados */
-    .gallery-item.hidden{
-      display:none;
-    }
 
     /* Skeleton loader para fotos */
     .photo-skeleton{
@@ -609,13 +592,6 @@
     <p class="section-sub">Cada corte, una obra</p>
     <div class="section-divider"></div>
 
-    <!--
-      INSTRUCCIONES: Reemplaza img/g1.jpeg … img/g20.jpeg con los nombres reales de tus fotos.
-      Las clases g-wide (ocupa 2 columnas) y g-tall (ocupa 2 filas) dan variedad visual.
-      El orden está pensado para alternar tamaños y crear ritmo.
-  -->
-
-
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterGallery('all',this)">Todos</button>
       <button class="filter-btn" onclick="filterGallery('corte',this)">✂&nbsp; Cortes</button>
@@ -733,6 +709,80 @@
         <div class="photo-skeleton"></div>
         <img src="img/g20.jpeg" alt="Corte 20" loading="lazy" onload="this.previousElementSibling.remove()">
         <div class="gallery-overlay"><span class="gallery-tag">Fade Clásico</span></div>
+      </div>
+
+      <!-- ===== CARPETA IMG2 — 12 fotos ===== -->
+      <!-- g1: barbero trabajando lateral -->
+      <div class="gallery-item g-wide" data-cat="corte" data-index="20" onclick="openLB(20)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g1.jpeg" alt="Corte 21" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Corte &amp; Fade</span></div>
+      </div>
+      <!-- g2: maquina en cabeza -->
+      <div class="gallery-item" data-cat="corte" data-index="21" onclick="openLB(21)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g2.jpeg" alt="Corte 22" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Degradado</span></div>
+      </div>
+      <!-- g3: resultado final perfil -->
+      <div class="gallery-item" data-cat="corte" data-index="22" onclick="openLB(22)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g3.jpeg" alt="Corte 23" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Fade</span></div>
+      </div>
+      <!-- g4: barbero de frente trabajando -->
+      <div class="gallery-item" data-cat="corte" data-index="23" onclick="openLB(23)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g4.jpeg" alt="Corte 24" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Corte</span></div>
+      </div>
+      <!-- g5: silla y local vista general -->
+      <div class="gallery-item g-wide" data-cat="corte" data-index="24" onclick="openLB(24)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g5.jpeg" alt="Corte 25" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Ambiente</span></div>
+      </div>
+      <!-- g6: perfil cliente atendido -->
+      <div class="gallery-item" data-cat="corte" data-index="25" onclick="openLB(25)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g6.jpeg" alt="Corte 26" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Skin Fade</span></div>
+      </div>
+      <!-- g7: barbero trabajando perfil -->
+      <div class="gallery-item" data-cat="corte" data-index="26" onclick="openLB(26)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g7.jpeg" alt="Corte 27" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Corte &amp; Barba</span></div>
+      </div>
+      <!-- g8: cliente sentado resultado -->
+      <div class="gallery-item" data-cat="corte" data-index="27" onclick="openLB(27)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g8.jpeg" alt="Corte 28" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Corte</span></div>
+      </div>
+      <!-- g9: barbero con tattoos trabajando -->
+      <div class="gallery-item" data-cat="corte" data-index="28" onclick="openLB(28)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g9.jpeg" alt="Corte 29" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Fade</span></div>
+      </div>
+      <!-- g10: silla negra vacía -->
+      <div class="gallery-item g-tall" data-cat="corte" data-index="29" onclick="openLB(29)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g10.jpeg" alt="Corte 30" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Ambiente</span></div>
+      </div>
+      <!-- g11: billar / sala de espera -->
+      <div class="gallery-item" data-cat="corte" data-index="30" onclick="openLB(30)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g11.jpeg" alt="Corte 31" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Local</span></div>
+      </div>
+      <!-- g12: instalaciones -->
+      <div class="gallery-item" data-cat="corte" data-index="31" onclick="openLB(31)">
+        <div class="photo-skeleton"></div>
+        <img src="img2/g12.jpeg" alt="Corte 32" loading="lazy" onload="this.previousElementSibling.remove()">
+        <div class="gallery-overlay"><span class="gallery-tag">Local</span></div>
       </div>
 
     </div>
