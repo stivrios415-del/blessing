@@ -411,6 +411,91 @@
       color:rgba(245,240,232,0.35);text-decoration:underline;
       transition:color 0.2s;
     }
+
+    /* ===================== MODAL FORMULARIO INSCRIPCIÓN ===================== */
+    .form-overlay{
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.88);
+      backdrop-filter:blur(6px);
+      z-index:1000;
+      display:none;align-items:center;justify-content:center;
+      padding:1rem;
+      animation:fadeUp 0.35s ease forwards;
+    }
+    .form-overlay.open{display:flex;}
+    .form-modal{
+      background:#111;
+      border:1px solid rgba(200,169,110,0.3);
+      border-radius:1.25rem;
+      max-width:440px;
+      width:100%;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 30px 80px -10px rgba(0,0,0,0.9), 0 0 0 1px rgba(200,169,110,0.08);
+      padding:1.75rem 1.75rem 2rem;
+    }
+    .form-close{
+      position:absolute;top:0.85rem;right:0.85rem;
+      background:rgba(0,0,0,0.55);border:1px solid rgba(200,169,110,0.25);
+      color:#C8A96E;width:34px;height:34px;border-radius:50%;
+      font-size:1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      z-index:10;transition:background 0.2s;
+    }
+    .form-close:hover{background:rgba(200,169,110,0.2);}
+    .form-badge{
+      display:inline-block;
+      background:rgba(200,169,110,0.12);border:1px solid rgba(200,169,110,0.3);
+      color:#C8A96E;font-size:0.6rem;font-weight:700;letter-spacing:0.22em;
+      text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:9999px;
+      margin-bottom:0.9rem;
+    }
+    .form-title{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(1.6rem,5vw,2rem);
+      color:#F5F0E8;letter-spacing:0.04em;line-height:1.05;
+      margin-bottom:0.35rem;
+    }
+    .form-title span{color:#C8A96E;}
+    .form-desc{
+      font-size:0.8rem;font-weight:300;
+      color:rgba(245,240,232,0.55);line-height:1.6;
+      margin-bottom:1.5rem;
+    }
+    .form-field{margin-bottom:1.1rem;}
+    .form-label{
+      display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.16em;
+      text-transform:uppercase;color:#C8A96E;margin-bottom:0.5rem;
+    }
+    .form-input, .form-select{
+      width:100%;background:rgba(255,255,255,0.04);
+      border:1px solid rgba(200,169,110,0.25);
+      border-radius:0.6rem;padding:0.75rem 0.9rem;
+      color:#F5F0E8;font-family:'Lato',sans-serif;font-size:0.9rem;
+      transition:border-color 0.2s,background 0.2s;
+    }
+    .form-input::placeholder{color:rgba(245,240,232,0.3);}
+    .form-input:focus, .form-select:focus{
+      outline:none;border-color:#C8A96E;background:rgba(200,169,110,0.06);
+    }
+    .form-select{appearance:none;cursor:pointer;
+      background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8A96E' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 0.9rem center;background-size:16px;
+      padding-right:2.5rem;
+    }
+    .form-select option{background:#111;color:#F5F0E8;}
+    .form-error{
+      font-size:0.72rem;color:#e07a7a;margin-top:0.4rem;display:none;
+    }
+    .form-error.show{display:block;}
+    .btn-form-submit{
+      width:100%;background:#C8A96E;color:#0A0A0A;
+      font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;
+      letter-spacing:0.12em;text-transform:uppercase;
+      padding:0.85rem 1.5rem;border-radius:9999px;border:none;
+      cursor:pointer;transition:all 0.2s;margin-top:0.5rem;
+    }
+    .btn-form-submit:hover{background:#DFC08A;transform:scale(1.02);}
     @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;}}
   </style>
 </head>
@@ -421,7 +506,6 @@
   PARA PERSONALIZAR:
   - Cambia img/anuncio1.jpeg e img/anuncio2.jpeg por tus imágenes del evento
   - Cambia el texto del título, descripción y badge
-  - Cambia el href del botón "Ver más" por tu link de Instagram o el que quieras
 -->
 <div class="announce-overlay" id="announceOverlay">
   <div class="announce-modal">
@@ -459,16 +543,62 @@
 Este 25 de agosto, celebramos el Día del Barbero con el encuentro más prestigioso del país. Una jornada llena de talento, estilo y las últimas tendencias de la industria que no te puedes perder.
       </p>
       <div class="announce-actions">
-        <a class="btn-announce-main"
-           href="https://www.instagram.com/_elnegrobarberhn?igsh=MTZseTNxZmI4NjdmNw=="
-           target="_blank" rel="noopener">
-          Ver más
+        <button class="btn-announce-main" onclick="openForm()">
+          Inscribirse
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
+        </button>
         <button class="btn-announce-skip" onclick="closeAnnounce()">Omitir por ahora</button>
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- ===================== MODAL FORMULARIO DE INSCRIPCIÓN ===================== -->
+<!--
+  PARA PERSONALIZAR LAS CATEGORÍAS:
+  Edita las 4 líneas <option> dentro de <select id="formCategoria">
+  más abajo, reemplazando "Categoría 1", "Categoría 2", etc. por tus nombres reales.
+-->
+<div class="form-overlay" id="formOverlay">
+  <div class="form-modal">
+    <button class="form-close" onclick="closeForm()">✕</button>
+
+    <span class="form-badge">✦ Inscripción</span>
+    <h2 class="form-title">Regístrate al <span>Evento</span></h2>
+    <p class="form-desc">Completa tus datos para asegurar tu cupo en el Barber Talent.</p>
+    <p class="form-desc">Metodo de pago Transferencia a BAC </p>
+
+    <form id="inscripcionForm" onsubmit="return enviarInscripcion(event)">
+      <div class="form-field">
+        <label class="form-label" for="formNombre">Nombre completo</label>
+        <input class="form-input" type="text" id="formNombre" placeholder="Ej. Juan Pérez" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="formGmail">Correo Gmail</label>
+        <input class="form-input" type="email" id="formGmail" placeholder="ejemplo@gmail.com" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" required>
+        <span class="form-error" id="gmailError">Ingresa un correo @gmail.com válido</span>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="formTelefono">Número de teléfono</label>
+        <input class="form-input" type="tel" id="formTelefono" placeholder="Ej. 9759-2085" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="formCategoria">Categoría</label>
+        <select class="form-select" id="formCategoria" required>
+          <option value="" disabled selected>Selecciona una categoría</option>
+          <option value="Categoría 1">Corte Rapido</option>
+          <option value="Categoría 2">Corte y Barba</option>
+          <option value="Categoría 3">Freestyle</option>
+          <option value="Categoría 4">Impacto Visual</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-form-submit">Enviar inscripción</button>
+    </form>
   </div>
 </div>
 
@@ -540,7 +670,7 @@ Este 25 de agosto, celebramos el Día del Barbero con el encuentro más prestigi
   <div class="bottom-left">
     <p class="hours-label">Horario</p>
     <p class="hours-text">
-      Lun – Vie: 9 AM – 8 PM<br>
+      Lun – Vie: 9 AM – 6 PM<br>
       Sábado: 8 AM – 6 PM<br>
       Domingo: Cerrado
     </p>
@@ -782,7 +912,59 @@ Este 25 de agosto, celebramos el Día del Barbero con el encuentro más prestigi
     el.classList.add('hiding');
     setTimeout(()=>{ el.style.display='none'; }, 340);
   }
-  setInterval(()=>{ slideAnnounce(1); }, 3500);
+  let annInterval = setInterval(()=>{ slideAnnounce(1); }, 3500);
+
+  /* ---- Modal Formulario de Inscripción ---- */
+  function openForm(){
+    clearInterval(annInterval);
+    closeAnnounce();
+    document.getElementById('formOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeForm(){
+    document.getElementById('formOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('formOverlay').addEventListener('click', (e)=>{
+    if(e.target.id === 'formOverlay') closeForm();
+  });
+
+  function enviarInscripcion(e){
+    e.preventDefault();
+
+    const nombre    = document.getElementById('formNombre').value.trim();
+    const gmail     = document.getElementById('formGmail').value.trim();
+    const telefono  = document.getElementById('formTelefono').value.trim();
+    const categoria = document.getElementById('formCategoria').value;
+    const gmailError = document.getElementById('gmailError');
+
+    // Validar que el correo sea gmail
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if(!gmailPattern.test(gmail)){
+      gmailError.classList.add('show');
+      document.getElementById('formGmail').focus();
+      return false;
+    }
+    gmailError.classList.remove('show');
+
+    if(!nombre || !telefono || !categoria){
+      return false;
+    }
+
+    // Construir mensaje para WhatsApp con los datos de inscripción
+    const mensaje =
+      `Hola, quiero inscribirme al Barber Talent Evento:%0A` +
+      `Nombre: ${encodeURIComponent(nombre)}%0A` +
+      `Gmail: ${encodeURIComponent(gmail)}%0A` +
+      `Teléfono: ${encodeURIComponent(telefono)}%0A` +
+      `Categoría: ${encodeURIComponent(categoria)}`;
+
+    window.open(`https://wa.me/50497592085?text=${mensaje}`, '_blank');
+
+    closeForm();
+    document.getElementById('inscripcionForm').reset();
+    return false;
+  }
 
   /* ---- Filtro galería ---- */
   function filterGallery(cat, btn){
