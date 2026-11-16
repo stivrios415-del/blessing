@@ -534,59 +534,6 @@
 </head>
 <body>
 
-<!-- ===================== MODAL ANUNCIO ===================== -->
-<!--
-  PARA PERSONALIZAR:
-  - Cambia img/anuncio1.jpeg e img/anuncio2.jpeg por tus imágenes del evento
-  - Cambia el texto del título, descripción y badge
--->
-<div class="announce-overlay" id="announceOverlay">
-  <div class="announce-modal">
-
-    <!-- Botón cerrar -->
-    <button class="announce-close" onclick="closeAnnounce()">✕</button>
-
-    <!-- Carrusel -->
-    <div class="announce-carousel">
-      <div class="announce-slides" id="announceSlides">
-        <div class="announce-slide">
-          <img src="img/anuncio3.jpeg" alt="Evento 1">
-        </div>
-        <div class="announce-slide">
-          <img src="img/anuncio2.jpeg" alt="Evento 2">
-        </div>
-      </div>
-      <!-- Flechas -->
-      <button class="announce-arr announce-arr-l" onclick="slideAnnounce(-1)">&#8592;</button>
-      <button class="announce-arr announce-arr-r" onclick="slideAnnounce(1)">&#8594;</button>
-      <!-- Dots -->
-      <div class="announce-dots">
-        <button class="announce-dot active" onclick="goAnnounce(0)"></button>
-        <button class="announce-dot"        onclick="goAnnounce(1)"></button>
-      </div>
-    </div>
-
-    <!-- Texto -->
-    <div class="announce-body">
-      <span class="announce-badge">✦ Evento Especial</span>
-      <h2 class="announce-title">BARBER TALENT <span>Evento</span></h2>
-      <p class="announce-desc">
-       💈 ¡El evento más esperado del año ya tiene fecha! 💈
-
-Este 30 de agosto, celebramos el Día del Barbero con el encuentro más prestigioso del país. Una jornada llena de talento, estilo y las últimas tendencias de la industria que no te puedes perder.
-      </p>
-      <div class="announce-actions">
-        <button class="btn-announce-main" onclick="openForm()">
-          Inscribirse
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </button>
-        <button class="btn-announce-skip" onclick="closeAnnounce()">Omitir por ahora</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <!-- ===================== MODAL FORMULARIO DE INSCRIPCIÓN ===================== -->
 <!--
   PARA PERSONALIZAR LAS CATEGORÍAS:
